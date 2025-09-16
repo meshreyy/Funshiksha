@@ -1,9 +1,19 @@
 export function register() {
-  // Minimal register, can expand later
-  console.log('Service Worker registered (stub)');
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(registration => {
+        console.log('Service Worker registered:', registration);
+      })
+      .catch(error => {
+        console.error('Service Worker registration failed:', error);
+      });
+  }
 }
 
 export function unregister() {
-  // Minimal unregister
-  console.log('Service Worker unregistered (stub)');
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.ready.then(registration => {
+      registration.unregister();
+    });
+  }
 }
